@@ -25,29 +25,58 @@ fun main() {
         // กรองสินค้าที่ราคามากกว่า 500
         // ดึงเฉพาะราคาออกมาเป็น List<Double>
         // หาผลรวมของราคา
-    val totalElecPriceOver500 = products
-        .filter { it.category == "Electronics" }
-        .filter { it.price > 500.0 }
-        .map { it.price }
-        .fold(0.0) { acc, it -> acc + it }
+//    val totalElecPriceOver500 = products
+//        .filter { it.category == "Electronics" }
+//        .filter { it.price > 500.0 }
+//        .map { it.price }
+//        .fold(0.0) { acc, it -> acc + it }
+//
+//        println("วิธีที่ 1: ใช้ Chaining กับ List")
+//        println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500 บาท")
+//        println("--------------------------------------------------")
+//
+//        val totalElecPriceOver500Sequence =  products
+//            .asSequence()
+//            .filter { it.category == "Electronics" }
+//            .filter { it.price > 500.0 }
+//            .map { it.price }
+//            .fold(0.0) { acc, it -> acc + it }
+//
+//        println("วิธีที่ 2: ใช้ .asSequence() (ขั้นสูง)")
+//        println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500Sequence บาท")
+//        println("--------------------------------------------------")
 
-        println("วิธีที่ 1: ใช้ Chaining กับ List")
-        println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500 บาท")
-        println("--------------------------------------------------")
 
-        val totalElecPriceOver500Sequence =  products
-            .asSequence()
-            .filter { it.category == "Electronics" }
-            .filter { it.price > 500.0 }
-            .map { it.price }
-            .fold(0.0) { acc, it -> acc + it }
+    val grouped = products.groupBy { product ->
+        when {
+            product.price <= 1000 -> "ไม่เกิน 1,000 บาท"
+            product.price <= 9999 -> "1,000 - 9,999 บาท"
+            else -> "10,000 บาทขึ้นไป"
+        }
+    }
 
-        println("วิธีที่ 2: ใช้ .asSequence() (ขั้นสูง)")
-        println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500Sequence บาท")
-        println("--------------------------------------------------")
+    grouped.forEach { (range, items) ->
+        println("กลุ่ม: $range")
+        items.forEach { println("- ${it.name} (${it.price})") }
+        println()
+    }
 
 
-        println("อภิปรายความแตกต่างระหว่าง List และ Sequence:")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    println("อภิปรายความแตกต่างระหว่าง List และ Sequence:")
         println("1. List Operations (วิธีที่ 1):")
         println("   - ทุกครั้งที่เรียกใช้ operation (เช่น filter, map) จะมีการสร้าง Collection (List) ใหม่ขึ้นมาเพื่อเก็บผลลัพธ์ของขั้นนั้นๆ")
         println("   - ตัวอย่าง: filter ครั้งแรกสร้าง List ใหม่ -> filter ครั้งที่สองสร้าง List ใหม่อีกใบ -> map สร้าง List สุดท้าย -> sum ทำงาน")
