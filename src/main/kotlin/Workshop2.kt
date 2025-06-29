@@ -19,32 +19,32 @@ fun main() {
     }
         println("--------------------------------------------------")
 
-        // --- โจทย์: จงหาผลรวมราคาสินค้าทั้งหมดในหมวด 'Electronics' ที่มีราคามากกว่า 500 บาท ---
-        // 3. วิธีที่ 1: การใช้ Chaining กับ List โดยตรง
-        // กรองสินค้าหมวด Electronics
-        // กรองสินค้าที่ราคามากกว่า 500
-        // ดึงเฉพาะราคาออกมาเป็น List<Double>
-        // หาผลรวมของราคา
-//    val totalElecPriceOver500 = products
-//        .filter { it.category == "Electronics" }
-//        .filter { it.price > 500.0 }
-//        .map { it.price }
-//        .fold(0.0) { acc, it -> acc + it }
-//
-//        println("วิธีที่ 1: ใช้ Chaining กับ List")
-//        println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500 บาท")
-//        println("--------------------------------------------------")
-//
-//        val totalElecPriceOver500Sequence =  products
-//            .asSequence()
-//            .filter { it.category == "Electronics" }
-//            .filter { it.price > 500.0 }
-//            .map { it.price }
-//            .fold(0.0) { acc, it -> acc + it }
-//
-//        println("วิธีที่ 2: ใช้ .asSequence() (ขั้นสูง)")
-//        println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500Sequence บาท")
-//        println("--------------------------------------------------")
+//         --- โจทย์: จงหาผลรวมราคาสินค้าทั้งหมดในหมวด 'Electronics' ที่มีราคามากกว่า 500 บาท ---
+//         3. วิธีที่ 1: การใช้ Chaining กับ List โดยตรง
+//         กรองสินค้าหมวด Electronics
+//         กรองสินค้าที่ราคามากกว่า 500
+//         ดึงเฉพาะราคาออกมาเป็น List<Double>
+//         หาผลรวมของราคา
+    val totalElecPriceOver500 = products
+        .filter { it.category == "Electronics" }
+        .filter { it.price > 500.0 }
+        .map { it.price }
+        .fold(0.0) { acc, it -> acc + it }
+
+        println("วิธีที่ 1: ใช้ Chaining กับ List")
+        println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500 บาท")
+        println("--------------------------------------------------")
+
+    val totalElecPriceOver500Sequence =  products
+        .asSequence()
+        .filter { it.category == "Electronics" }
+        .filter { it.price > 500.0 }
+        .map { it.price }
+        .fold(0.0) { acc, it -> acc + it }
+
+    println("วิธีที่ 2: ใช้ .asSequence() (ขั้นสูง)")
+    println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500Sequence บาท")
+    println("--------------------------------------------------")
 
 
     val grouped = products.groupBy { product ->
@@ -63,18 +63,9 @@ fun main() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    println("วิธีที่ 2: ใช้ .asSequence() (ขั้นสูง)")
+    println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500Sequence บาท")
+    println("--------------------------------------------------")
 
     println("อภิปรายความแตกต่างระหว่าง List และ Sequence:")
         println("1. List Operations (วิธีที่ 1):")
@@ -90,3 +81,21 @@ fun main() {
         println("   - จะไม่มีการสร้าง Collection กลางทาง ทำให้ประหยัดหน่วยความจำและเร็วกว่ามากสำหรับชุดข้อมูลขนาดใหญ่ เพราะทำงานกับข้อมูลทีละชิ้นและทำทุกขั้นตอนให้เสร็จในรอบเดียว")
         println("   - การคำนวณจะเกิดขึ้นเมื่อมี 'Terminal Operation' มาเรียกใช้เท่านั้น (ในที่นี้คือ .sum())")
     }
+
+
+fun totalElecPriceOver500Sequences(products: List<Product>): Double {
+    val totalElecPriceOver500s =  products
+        .asSequence()
+        .filter { it.category == "Electronics" }
+        .filter { it.price > 500.0 }
+        .map { it.price }
+        .fold(0.0) { acc, it -> acc + it }
+    return totalElecPriceOver500s
+}
+
+fun totalElecPriceOver500(products: List<Product>): Int {
+    val totalElecPriceOver500s =  products
+        .filter { it.category == "Electronics" && it.price > 500.0 }
+        .size
+    return totalElecPriceOver500s
+}

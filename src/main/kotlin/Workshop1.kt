@@ -37,7 +37,7 @@ fun main() {
 // สูตร celsius * 9.0 / 5.0 + 32
 // 🚨
 fun celsiusToFahrenheit(celsius: Double): Double {
-    return celsius * 9.0 / 5.0 + 30
+    return celsius * 9.0 / 5.0 + 32
 }
 
 
